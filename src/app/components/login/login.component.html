@@ -1,0 +1,43 @@
+<form
+  class="login"
+  (ngSubmit)="submitForm()"
+  [formGroup]="form"
+  autocomplete="off"
+>
+  <div
+    style="
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    "
+  >
+    <mat-card class="form-container" style="box-shadow: none">
+      <mat-card-title
+        style="display: flex; justify-content: center; align-items: center"
+        >Login</mat-card-title
+      >
+
+      <div>
+        <mat-form-field>
+          <input matInput placeholder="login" formControlName="login" />
+        </mat-form-field>
+      </div>
+
+      <div>
+        <mat-form-field>
+          <input
+            matInput
+            type="password"
+            placeholder="password"
+            formControlName="password"
+          />
+        </mat-form-field>
+      </div>
+
+      <div style="display: flex; justify-content: center; align-items: center">
+        <button type="submit" mat-raised-button color="primary">Login</button>
+      </div>
+    </mat-card>
+  </div>
+</form>
