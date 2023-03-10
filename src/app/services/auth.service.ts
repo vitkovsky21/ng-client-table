@@ -1,6 +1,14 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, tap } from 'rxjs';
-import { ApiService } from './api.service';
+import { BehaviorSubject } from 'rxjs';
+
+const AUTH_API = 'https://api.asgk-group.ru/test-auth-only';
+
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type': 'application/json',
+  }),
+};
 
 @Injectable({
   providedIn: 'root',
@@ -10,20 +18,24 @@ export class AuthService {
   private _isLoggedIn$ = new BehaviorSubject<boolean>(false);
   isLoggedIn$ = this._isLoggedIn$.asObservable();
 
-  get token() {
+  constructor(private http: HttpClient) {
+    this._isLoggedIn$.next(!!this.tokenData);
+  }
+
+  get tokenData() {
     return localStorage.getItem(this.TOKEN);
   }
 
-  constructor(private apiService: ApiService) {
-    this._isLoggedIn$.next(!!this.token);
-  }
-
   login(login: string, password: string) {
-    return this.apiService.login(login, password).pipe(
-      tap((response: any) => {
-        this._isLoggedIn$.next(true);
-        localStorage.setItem(this.TOKEN, response.token);
-      })
+    this._isLoggedIn$.next(true);
+
+    return this.http.post(
+      AUTH_API,
+      {
+        login,
+        password,
+      },
+      httpOptions
     );
   }
 }

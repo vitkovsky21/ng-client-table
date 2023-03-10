@@ -7,7 +7,9 @@ import {
   UrlTree,
 } from '@angular/router';
 import { Observable, tap } from 'rxjs';
+import { LoginComponent } from './components/login/login.component';
 import { AuthService } from './services/auth.service';
+import { StorageService } from './services/storage.service';
 
 @Injectable({
   providedIn: 'root',
@@ -23,12 +25,11 @@ export class IsAuthGuard implements CanActivate {
     | UrlTree
     | Observable<boolean | UrlTree>
     | Promise<boolean | UrlTree> {
-    return this.authService.isLoggedIn$.pipe(
-      tap((isLoggedIn) => {
-        if (!isLoggedIn) {
-          this.router.navigate(['']);
-        }
-      })
-    );
+    if (window.sessionStorage['auth-user']) {
+      return true;
+    } else {
+      this.router.navigate(['']);
+      return false;
+    }
   }
 }

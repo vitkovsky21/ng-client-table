@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatCardModule } from '@angular/material/card';
+import { MatTableModule } from '@angular/material/table';
 
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -40,6 +41,7 @@ const MaterialComp = [
   MatMenuModule,
   MatInputModule,
   MatProgressSpinnerModule,
+  MatTableModule
 ];
 
 @NgModule({
