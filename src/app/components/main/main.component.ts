@@ -47,16 +47,21 @@ import { UserService } from 'src/app/services/user.service';
   templateUrl: 'main.component.html',
 })
 export class MainComponent {
-  ELEMENT_DATA: UserElement[] = [];
+  ELEMENT_DATA: any = [];
+  dataSource = [];
   constructor(private userService: UserService) {}
 
   ngOnInit(): void {
-    this.userService.getUsers(window.sessionStorage['auth-user'].slice(1,-1)).subscribe((userData) => {
-      this.ELEMENT_DATA = userData;
-    });
+    this.userService
+      .getUsers(window.sessionStorage['auth-user'].slice(1, -1))
+      .subscribe((userData) => {
+        this.ELEMENT_DATA = userData.passes;
+
+        this.dataSource = this.ELEMENT_DATA;
+      });
   }
   displayedColumns: string[] = [
-    'id',
+    'user_id',
     'template',
     'first_name',
     'last_name',
@@ -66,5 +71,4 @@ export class MainComponent {
     'birthday',
     'gender',
   ];
-  dataSource = this.ELEMENT_DATA;
 }
