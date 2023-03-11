@@ -1,47 +1,138 @@
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+<mat-form-field appearance="fill" class="txt-full-width">
+  <mat-label>Search</mat-label>
+  <input
+    (input)="subSearchBoxChanges()"
+    matInput
+    [formControl]="searchControl"
+    placeholder="Поиск по ФИО"
+  />
+</mat-form-field>
+
+<table
+  mat-table
+  [dataSource]="!filteredData ? sortedData : filteredData"
+  matSort
+  (matSortChange)="sortData($event)"
+  class="mat-elevation-z8"
+>
   <ng-container matColumnDef="user_id">
-    <th mat-header-cell *matHeaderCellDef>Id</th>
+    <th
+      mat-header-cell
+      mat-sort-header="user_id"
+      mat-sort-header
+      *matHeaderCellDef
+    >
+      Id
+    </th>
     <td mat-cell *matCellDef="let element">{{ element.user_id }}</td>
   </ng-container>
 
   <ng-container matColumnDef="template">
-    <th mat-header-cell *matHeaderCellDef>Template</th>
+    <th
+      mat-header-cell
+      mat-sort-header="template"
+      mat-sort-header
+      *matHeaderCellDef
+    >
+      Шаблон
+    </th>
     <td mat-cell *matCellDef="let element">{{ element.template }}</td>
   </ng-container>
 
+  <ng-container matColumnDef="fio">
+    <th
+      mat-header-cell
+      mat-sort-header="fio"
+      mat-sort-header
+      *matHeaderCellDef
+    >
+      ФИО
+    </th>
+    <td mat-cell *matCellDef="let element">{{ element.fio }}</td>
+  </ng-container>
+
   <ng-container matColumnDef="first_name">
-    <th mat-header-cell *matHeaderCellDef>First Name</th>
+    <th
+      mat-header-cell
+      mat-sort-header="first_name"
+      mat-sort-header
+      *matHeaderCellDef
+    >
+      Имя
+    </th>
     <td mat-cell *matCellDef="let element">{{ element.first_name }}</td>
   </ng-container>
-  
+
   <ng-container matColumnDef="last_name">
-    <th mat-header-cell *matHeaderCellDef>Last Name</th>
+    <th
+      mat-header-cell
+      mat-sort-header="last_name"
+      mat-sort-header
+      *matHeaderCellDef
+    >
+      Фамилия
+    </th>
     <td mat-cell *matCellDef="let element">{{ element.last_name }}</td>
   </ng-container>
 
   <ng-container matColumnDef="pat_name">
-    <th mat-header-cell *matHeaderCellDef>Pat Name</th>
+    <th
+      mat-header-cell
+      mat-sort-header="pat_name"
+      mat-sort-header
+      *matHeaderCellDef
+    >
+      Отчество
+    </th>
     <td mat-cell *matCellDef="let element">{{ element.pat_name }}</td>
   </ng-container>
 
   <ng-container matColumnDef="phone">
-    <th mat-header-cell *matHeaderCellDef>Phone</th>
+    <th
+      mat-header-cell
+      mat-sort-header="phone"
+      mat-sort-header
+      *matHeaderCellDef
+    >
+      Телефон
+    </th>
     <td mat-cell *matCellDef="let element">{{ element.phone }}</td>
   </ng-container>
 
   <ng-container matColumnDef="email">
-    <th mat-header-cell *matHeaderCellDef>Email</th>
+    <th
+      mat-header-cell
+      mat-sort-header="email"
+      mat-sort-header
+      *matHeaderCellDef
+    >
+      Email
+    </th>
     <td mat-cell *matCellDef="let element">{{ element.email }}</td>
   </ng-container>
 
   <ng-container matColumnDef="birthday">
-    <th mat-header-cell *matHeaderCellDef>Birthday</th>
+    <th
+      mat-header-cell
+      mat-sort-header="birthday"
+      mat-sort-header
+      *matHeaderCellDef
+    >
+      День Рождения
+    </th>
     <td mat-cell *matCellDef="let element">{{ element.birthday }}</td>
   </ng-container>
 
-  <ng-container matColumnDef="gender">
-    <th mat-header-cell *matHeaderCellDef>Gender</th>
-    <td mat-cell *matCellDef="let element">{{ element.gender }}</td>
+  <ng-container matColumnDef="discount">
+    <th
+      mat-header-cell
+      mat-sort-header="discount"
+      mat-sort-header
+      *matHeaderCellDef
+    >
+      Скидка
+    </th>
+    <td mat-cell *matCellDef="let element">{{ element.discount }}</td>
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

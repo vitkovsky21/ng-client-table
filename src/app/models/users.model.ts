@@ -1,5 +1,5 @@
 export interface UserElement {
-  id: number;
+  user_id: number;
   template: string;
   fio: string;
   first_name: string;
@@ -8,5 +8,5 @@ export interface UserElement {
   phone: string;
   email: string;
   birthday: string;
-  gender: string;
+  discount: string;
 }
