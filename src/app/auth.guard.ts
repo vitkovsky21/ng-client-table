@@ -15,7 +15,7 @@ import { StorageService } from './services/storage.service';
   providedIn: 'root',
 })
 export class IsAuthGuard implements CanActivate {
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private router: Router) {}
 
   canActivate(
     route: ActivatedRouteSnapshot,

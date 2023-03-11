@@ -13,9 +13,7 @@ export class LoginComponent implements OnInit {
     login: null,
     password: null,
   };
-  isLoginFailed = false;
   errorMessage = '';
-  roles: string[] = [];
 
   constructor(
     private authService: AuthService,
@@ -27,9 +25,6 @@ export class LoginComponent implements OnInit {
     if (this.authService.isLoggedIn$) {
       this.router.navigate(['main']);
     }
-    if (this.storageService.isLoggedIn()) {
-      this.roles = this.storageService.getUser().roles;
-    }
   }
 
   onSubmit(): void {
@@ -38,19 +33,11 @@ export class LoginComponent implements OnInit {
     this.authService.login(login, password).subscribe({
       next: (data: any) => {
         this.storageService.saveUser(data['auth_token']);
-
-        this.isLoginFailed = false;
-        this.roles = this.storageService.getUser().roles;
         this.router.navigate(['main']);
       },
       error: (err) => {
         this.errorMessage = err.error.message;
-        this.isLoginFailed = true;
       },
     });
-  }
-
-  reloadPage(): void {
-    window.location.reload();
   }
 }
