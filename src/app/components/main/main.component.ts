@@ -4,6 +4,8 @@ import { UserService } from 'src/app/services/user.service';
 import { Sort } from '@angular/material/sort';
 import { debounceTime, Subscription } from 'rxjs';
 import { FormControl } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { MessageComponent } from '../message/message.component';
 
 function compare(a: number | string, b: number | string, isAsc: boolean) {
   return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
@@ -17,6 +19,8 @@ function compare(a: number | string, b: number | string, isAsc: boolean) {
 export class MainComponent {
   ELEMENT_DATA: any = [];
 
+  message?: string;
+
   dataSource: UserElement[] = [];
   sortedData: UserElement[] = [];
   filteredData?: UserElement[];
@@ -25,7 +29,7 @@ export class MainComponent {
   countriesSub?: Subscription;
   searchControl = new FormControl();
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService, public dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.userService
@@ -36,6 +40,21 @@ export class MainComponent {
         this.dataSource = this.ELEMENT_DATA;
         this.sortedData = this.dataSource.slice();
       });
+  }
+
+  openDialog(userId: any): any {
+    const dialogRef = this.dialog.open(MessageComponent, {
+      width: '250px',
+      data: {
+        push_message: this.message,
+        user_id: userId.toString(),
+        date_start: '',
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      this.message = result;
+    });
   }
 
   displayedColumns: string[] = [
@@ -58,7 +77,7 @@ export class MainComponent {
       return;
     }
 
-    this.sortedData = data.sort((a, b) => {
+    this.filteredData = data.sort((a, b) => {
       const isAsc = sort.direction === 'asc';
       switch (sort.active) {
         case 'user_id':
@@ -85,6 +104,8 @@ export class MainComponent {
           return 0;
       }
     });
+
+    this.sortedData = this.filteredData;
   }
 
   subSearchBoxChanges() {
@@ -95,7 +116,7 @@ export class MainComponent {
 
   applyFilter(filterValue: any): void {
     this.filteredData = this.sortedData.filter((val: any) => {
-      return val.fio.includes(filterValue);
+      return val.fio.toLowerCase().includes(filterValue.toLowerCase());
     });
   }
 }

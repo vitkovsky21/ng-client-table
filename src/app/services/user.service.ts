@@ -20,4 +20,17 @@ export class UserService {
       }),
     });
   }
+
+  messageToUsers(token: string, data: any): Observable<any> {
+    console.log(data)
+    return this.http.post(API_URL + token + '/message/push', data, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: window.sessionStorage['auth-user']
+          ? window.sessionStorage['auth-user'].slice(1, -1)
+          : window.sessionStorage['auth-user'],
+      }),
+    });
+  }
+
 }

@@ -10,13 +10,15 @@ import { HttpClientModule } from '@angular/common/http';
 import { MainComponent } from './components/main/main.component';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MessageComponent } from './components/message/message.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    MainComponent
+    MainComponent,
+    MessageComponent
   ],
   imports: [
     BrowserModule,
