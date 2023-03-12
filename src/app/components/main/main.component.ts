@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { UserElement } from 'src/app/models/users.model';
 import { UserService } from 'src/app/services/user.service';
 import { Sort } from '@angular/material/sort';
-import { debounceTime, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MessageComponent } from '../message/message.component';

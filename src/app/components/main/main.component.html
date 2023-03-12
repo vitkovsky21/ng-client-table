@@ -36,7 +36,16 @@
     >
       Шаблон
     </th>
-    <td mat-cell *matCellDef="let element">{{ element.template }}</td>
+    <td mat-cell *matCellDef="let element">
+      {{ element.template }}
+      <button
+        style="margin-left: 2rem"
+        mat-raised-button
+        (click)="openDialog(element.user_id)"
+      >
+        Send Message
+      </button>
+    </td>
   </ng-container>
 
   <ng-container matColumnDef="fio">
@@ -45,9 +54,6 @@
     </th>
     <td mat-cell *matCellDef="let element">
       {{ element.fio }}
-      <button style="margin-left: 2rem" mat-raised-button (click)="openDialog(element.user_id)">
-        Send Message
-      </button>
     </td>
   </ng-container>
 
