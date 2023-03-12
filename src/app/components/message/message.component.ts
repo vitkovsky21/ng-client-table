@@ -25,8 +25,14 @@ export class MessageComponent {
   }
 
   sendMessage() {
-    this.userService.messageToUsers(window.sessionStorage['auth-user'].slice(1, -1), this.data).subscribe((userData) => {
-      console.log(userData)
-    });
+    this.userService
+      .messageToUsers(
+        window.sessionStorage['auth-user'].slice(1, -1),
+        this.data
+      )
+      .subscribe((userData) => {
+        console.log(userData);
+        alert('The message has been sent.');
+      });
   }
 }

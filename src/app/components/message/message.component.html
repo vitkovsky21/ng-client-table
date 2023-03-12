@@ -4,7 +4,7 @@
     <input matInput [(ngModel)]="data.push_message">
   </mat-form-field>
 </div>
-<div mat-dialog-actions>
+<div mat-dialog-actions class="btn-field">
   <button mat-button (click)="onNoClick()">No Thanks</button>
   <button mat-button [mat-dialog-close]="data.push_message" (click)="sendMessage()" cdkFocusInitial>Ok</button>
 </div>

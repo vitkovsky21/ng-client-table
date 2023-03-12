@@ -72,12 +72,14 @@ export class MainComponent {
 
   sortData(sort: Sort) {
     const data = this.dataSource.slice();
+    const fltrData =  this.filteredData?.slice();
     if (!sort.active || sort.direction === '') {
       this.sortedData = data;
+      this.filteredData = fltrData;
       return;
     }
 
-    this.filteredData = data.sort((a, b) => {
+    this.filteredData = fltrData?.sort((a, b) => {
       const isAsc = sort.direction === 'asc';
       switch (sort.active) {
         case 'user_id':
@@ -105,7 +107,33 @@ export class MainComponent {
       }
     });
 
-    this.sortedData = this.filteredData;
+    this.sortedData = data.sort((a, b) => {
+      const isAsc = sort.direction === 'asc';
+      switch (sort.active) {
+        case 'user_id':
+          return compare(a.user_id, b.user_id, isAsc);
+        case 'template':
+          return compare(a.template, b.template, isAsc);
+        case 'fio':
+          return compare(a.fio, b.fio, isAsc);
+        case 'first_name':
+          return compare(a.first_name, b.first_name, isAsc);
+        case 'last_name':
+          return compare(a.last_name, b.last_name, isAsc);
+        case 'pat_name':
+          return compare(a.pat_name, b.pat_name, isAsc);
+        case 'phone':
+          return compare(a.phone, b.phone, isAsc);
+        case 'email':
+          return compare(a.email, b.email, isAsc);
+        case 'birthday':
+          return compare(a.birthday, b.birthday, isAsc);
+        case 'discount':
+          return compare(a.discount, b.discount, isAsc);
+        default:
+          return 0;
+      }
+    });
   }
 
   subSearchBoxChanges() {
